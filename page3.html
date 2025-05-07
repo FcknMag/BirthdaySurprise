@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Time!</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+    body {
+      font-family: 'Dancing Script', cursive;
+      background-color: #ffe6ec;
+      margin: 0;
+      padding: 40px 20px;
+      color: #4b2e2e;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 40px;
+    }
+
+    .quiz {
+      max-width: 800px;
+      margin: auto;
+      background: #fffaf0;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .question {
+      margin-bottom: 30px;
+    }
+
+    .question p {
+      font-size: 1.8em;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin: 5px 0;
+      cursor: pointer;
+      font-size: 1.3em;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .continue-btn {
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 1.2em;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      display: none;
+      transition: background-color 0.3s;
+    }
+
+    .continue-btn:hover {
+      background-color: #ff85c1;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Answer all the questions right to advance</h1>
+  <div class="quiz">
+    <div class="question" id="q1">
+      <p>1. Where did we first kiss?</p>
+      <label><input type="radio" name="q1" value="correct"> On a walk around the neighborhood</label>
+      <label><input type="radio" name="q1" value="wrong"> At my room</label>
+      <label><input type="radio" name="q1" value="wrong"> In Gaithersburg High School</label>
+    </div>
+
+    <div class="question" id="q2">
+      <p>2. What snack did we use to eat in my room?</p>
+      <label><input type="radio" name="q2" value="wrong"> Pizza</label>
+      <label><input type="radio" name="q2" value="correct"> Pringles(Cocaine)</label>
+      <label><input type="radio" name="q2" value="wrong"> Burgers</label>
+    </div>
+
+    <div class="question" id="q3">
+      <p>3. How much do I love you?</p>
+      <label><input type="radio" name="q3" value="wrong"> 1000</label>
+      <label><input type="radio" name="q3" value="wrong"> 1000000000000</label>
+      <label><input type="radio" name="q3" value="correct"> *ERROR* Value not supported by your computer memory</label>
+    </div>
+
+    <div class="question" id="q4">
+      <p>4. What's my favorite part about you?</p>
+      <label><input type="radio" name="q4" value="wrong"> Eyes</label>
+      <label><input type="radio" name="q4" value="wrong"> Boobies</label>
+      <label><input type="radio" name="q4" value="correct"> Everything, because you're perfect</label>
+    </div>
+
+    <div class="question" id="q5">
+      <p>5. What's my secret talent?</p>
+      <label><input type="radio" name="q5" value="wrong"> Playing games</label>
+      <label><input type="radio" name="q5" value="wrong"> Coding</label>
+      <label><input type="radio" name="q5" value="correct"> Falling for you every single day</label>
+    </div>
+
+    <div class="question" id="q6">
+      <p>6. Who is the most gorgeous and amazing person in the world?</p>
+      <label><input type="radio" name="q6" value="correct"> Anna!</label>
+      <label><input type="radio" name="q6" value="correct"> Anna again!</label>
+      <label><input type="radio" name="q6" value="correct"> U guessed right, Anna!</label>
+    </div>
+
+    <a href="page4.html" class="continue-btn" id="continueBtn">Continue</a>
+  </div>
+
+  <!-- Confetti script -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    const answers = {
+      q1: "correct",
+      q2: "correct",
+      q3: "correct",
+      q4: "correct",
+      q5: "correct",
+      q6: "correct"
+    };
+
+    const continueBtn = document.getElementById("continueBtn");
+    let confettiFired = false;
+
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener("change", checkAnswers);
+    });
+
+    function checkAnswers() {
+      let allCorrect = true;
+      for (let key in answers) {
+        const selected = document.querySelector(`input[name="${key}"]:checked`);
+        if (!selected || selected.value !== answers[key]) {
+          allCorrect = false;
+        }
+      }
+
+      if (allCorrect) {
+        continueBtn.style.display = "inline-block";
+        if (!confettiFired) {
+          confettiFired = true;
+          confetti({
+            particleCount: 200,
+            spread: 100,
+            origin: { y: 0.6 }
+          });
+        }
+      } else {
+        continueBtn.style.display = "none";
+        confettiFired = false;
+      }
+    }
+  </script>
+</body>
+</html>
